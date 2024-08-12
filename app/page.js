@@ -43,7 +43,7 @@ export default function Home() {
         const text = decoder.decode(value || new Int8Array(), {stream: true})
         setMessages((messages)=>{
           let lastMessage = messages[messages.length - 1]; // get the last message
-          let otherMessages = message.slice(0, messages.length-1); // get all messages except the last one
+          let otherMessages = messages.slice(0, messages.length-1); // get all messages except the last one
           return [
             ...otherMessages,
             {
