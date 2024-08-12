@@ -23,7 +23,7 @@ Please be polite, professional, and empathetic in your responses. If you're unsu
 
 // post route
 export async function POST(req) {
-    const openai = new OpenAI()
+    const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
     const data = await req.json() // gets the data from the request
 
     const completion = await openai.chat.completions.create({ // awiat makes it so it doesnt block ur code, and multiple request can be made at once
@@ -42,7 +42,7 @@ export async function POST(req) {
     // to do that we need to use the stream response, so create a new stream
     const stream = new ReadableStream({
         async start(controller) { // how the stream starts
-            const enocoder = new TextEncoder() // encodes text
+            const encoder = new TextEncoder() // encodes text
             try{
                 for await (const chunk of completion) { // waits for every chunk the completion sends
                     const content = chunk.choices[0]?.delta?.content // ? checks if the content exists
